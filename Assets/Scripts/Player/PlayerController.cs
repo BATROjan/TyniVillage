@@ -50,14 +50,6 @@ namespace DefaultNamespace
                     }
                 }
             }
-            if (rigidbody2D.linearVelocity.x < 0)
-            {
-                spriteRenderer.flipX = true;
-            }
-            else
-            {
-                spriteRenderer.flipX = false;
-            }
         }
 
         private void Update()
@@ -75,6 +67,15 @@ namespace DefaultNamespace
 
             rigidbody2D.linearVelocity = new Vector2(hor, ver) * 5;
             animator.SetFloat("Velocity", rigidbody2D.linearVelocity.magnitude);
+            if (hor < 0)
+            {
+                spriteRenderer.flipX = true;
+            }
+            if (hor > 0)
+            {
+                spriteRenderer.flipX = false;
+
+            }
         }
 
         private void RotationPlayerHorizontal()
