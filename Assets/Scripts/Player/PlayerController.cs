@@ -1,4 +1,7 @@
 ﻿using System;
+using DefaultNamespace.Items;
+using DefaultNamespace.Player;
+using DefaultNamespace.UI;
 using Photon.Pun;
 using UnityEngine;
 
@@ -6,6 +9,9 @@ namespace DefaultNamespace
 {
     public class PlayerController: MonoBehaviour
     {
+        [SerializeField] private UIStatusBarController statusBarController;
+        [SerializeField] private PlayerBackPackController playerBackPackController;
+        
         [SerializeField] private Rigidbody2D rigidbody2D;
         [SerializeField] private PhotonView _photonView;
         [SerializeField] private Animator animator;
@@ -17,16 +23,17 @@ namespace DefaultNamespace
         [SerializeField] private float jumpForce;
 
         private float rotationX;
-        
+        private ItemType currentItemType;
         private void Start()
         {
-            /*Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;*/
             if (!_photonView.IsMine)
             {
                 Destroy(GetComponentInChildren<Camera>().gameObject);
                 Destroy(rigidbody2D);
+              
             }
+            playerBackPackController.GetCell(0).OnChangeType += statusBarController.SetUpItem;
+            statusBarController.OnChangeItem += ChangeType;
         }
 
         private void FixedUpdate()
@@ -34,6 +41,14 @@ namespace DefaultNamespace
             if (_photonView.IsMine)
             {
                 PLayerMovement();
+                if (Input.GetKeyDown(KeyCode.Mouse0))
+                {
+                    Debug.Log("Axe");
+                    if (currentItemType == ItemType.Axe)
+                    {
+                        animator.SetBool("Axe", true);
+                    }
+                }
             }
             if (rigidbody2D.linearVelocity.x < 0)
             {
@@ -51,31 +66,8 @@ namespace DefaultNamespace
             {
                 return;
             }
-
-            /*RotationCameraVertical();
-                RotationPlayerHorizontal();
-                if (Input.GetButtonDown("Jump"))
-                {
-                    TryJump();
-                }*/
-            
         }
-
-        private void TryJump()
-        {
-            bool canJump = true;
-
-            Collider[] colliders = Physics.OverlapSphere(transform.position - Vector3.down * 0.5f, checkJumpRadius);
-            foreach (var collider in colliders)
-            {
-                if (collider.gameObject != gameObject)
-                {
-                    return;
-                }
-               // rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-            }
-        }
-
+        
         private void PLayerMovement()
         {
             float hor = Input.GetAxis("Horizontal");
@@ -83,19 +75,16 @@ namespace DefaultNamespace
 
             rigidbody2D.linearVelocity = new Vector2(hor, ver) * 5;
             animator.SetFloat("Velocity", rigidbody2D.linearVelocity.magnitude);
-
-            /*Vector3 movement = transform.forward * ver + transform.right * hor;
-            movement = Vector3.ClampMagnitude(movement, 1f);
-            rigidbody.velocity =
-                new Vector3(
-                    movement.x * movementSpeed,
-                    rigidbody.velocity.y,
-                    movement.z * movementSpeed);*/
         }
 
         private void RotationPlayerHorizontal()
         {
             transform.Rotate(Vector3.up, Input.GetAxisRaw("Mouse X") * cameraSensitivity);
+        }
+
+        private void ChangeType(ItemType type)
+        {
+            currentItemType = type;
         }
 
         private void RotationCameraVertical()

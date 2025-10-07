@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80bbbd0473fa4b32b142a81c6b9139fb, type: 3}
+  m_Name: ItemConfig
+  m_EditorClassIdentifier: Assembly-CSharp::DefaultNamespace.Items.ItemConfig
+  itemModels:
+  - ItemType: 0
+    Sprite: {fileID: 0}
+    Alpha: 0
+  - ItemType: 1
+    Sprite: {fileID: 242059027, guid: 09718aa93b1bfa04f888bb9fccc2f4e0, type: 3}
+    Alpha: 255

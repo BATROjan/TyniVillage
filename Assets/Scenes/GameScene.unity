@@ -79282,6 +79282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6a82a29306f474fa25359261fb35d2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DefaultNamespace.Tower.TowerController
+  itemView: {fileID: 4925055255564186567, guid: f0fafe5b9877ac54aa29cdff179b86ab, type: 3}
 --- !u!58 &596532824
 CircleCollider2D:
   m_ObjectHideFlags: 0
