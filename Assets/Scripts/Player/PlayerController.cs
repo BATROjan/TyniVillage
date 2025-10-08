@@ -3,6 +3,7 @@ using DefaultNamespace.Items;
 using DefaultNamespace.Player;
 using DefaultNamespace.UI;
 using Photon.Pun;
+using Player;
 using UnityEngine;
 
 namespace DefaultNamespace
@@ -11,6 +12,7 @@ namespace DefaultNamespace
     {
         [SerializeField] private UIStatusBarController statusBarController;
         [SerializeField] private PlayerBackPackController playerBackPackController;
+        [SerializeField] private PlayerMineController playerMineController;
         
         [SerializeField] private Rigidbody2D rigidbody2D;
         [SerializeField] private PhotonView _photonView;
@@ -70,11 +72,12 @@ namespace DefaultNamespace
             if (hor < 0)
             {
                 spriteRenderer.flipX = true;
+                playerMineController.ChangePoint(1);
             }
             if (hor > 0)
             {
                 spriteRenderer.flipX = false;
-
+                playerMineController.ChangePoint(0);
             }
         }
 

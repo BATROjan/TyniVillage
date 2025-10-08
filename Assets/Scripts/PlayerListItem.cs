@@ -8,18 +8,18 @@ using UnityEngine.UI;
 public class PlayerListItem : MonoBehaviourPunCallbacks
 {
     [SerializeField]private Text _playerName;
-    private Player _player;
+    private Photon.Realtime.Player _player;
     void Start()
     {
     }
 
-    public void SetUp(Player player)
+    public void SetUp(Photon.Realtime.Player player)
     {
         _player = player;
         _playerName.text = player.NickName;
     }
 
-    public override void OnPlayerLeftRoom(Player otherPlayer)
+    public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
     {
         if (_player == otherPlayer)
         {

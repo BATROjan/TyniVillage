@@ -5,6 +5,7 @@ using DefaultNamespace;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+using TMPro;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -12,9 +13,9 @@ using Random = UnityEngine.Random;
 public class Launcher : MonoBehaviourPunCallbacks
 {
     public static Launcher instance;
-    [SerializeField] private InputField inputField;
-    [SerializeField] private Text _text;
-    [SerializeField] private Text _Roomtext;
+    [SerializeField] private TMP_InputField inputField;
+    [SerializeField] private TextMeshProUGUI errorText;
+    [SerializeField] private TextMeshProUGUI roomNameText;
     [SerializeField] private Transform _roomlist;
     [SerializeField] private GameObject roomButtonPrefabs;
     [SerializeField] private Transform playerlist;
@@ -61,10 +62,10 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        _Roomtext.text = PhotonNetwork.CurrentRoom.Name;
+        roomNameText.text = PhotonNetwork.CurrentRoom.Name;
         MenuManager.instance.OpenMenu("Room");
         startGameButton.SetActive(PhotonNetwork.IsMasterClient);
-        Player[] players = PhotonNetwork.PlayerList;
+        Photon.Realtime.Player[] players = PhotonNetwork.PlayerList;
         for (int i = 0; i < playerlist.childCount; i++)
         {
             Destroy(playerlist.GetChild(i).gameObject);
@@ -75,7 +76,7 @@ public class Launcher : MonoBehaviourPunCallbacks
         }
     }
 
-    public override void OnMasterClientSwitched(Player newMasterClient)
+    public override void OnMasterClientSwitched(Photon.Realtime.Player newMasterClient)
     {
         startGameButton.SetActive(PhotonNetwork.IsMasterClient);
     }
@@ -93,7 +94,7 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public override void OnCreateRoomFailed(short returnCode, string message)
     {
-        _text.text = "Error " + message;
+        errorText.text = "Error " + message;
         MenuManager.instance.OpenMenu("Error");
         
     }
@@ -125,7 +126,7 @@ public class Launcher : MonoBehaviourPunCallbacks
         PhotonNetwork.LoadLevel(1);
     }
 
-    public override void OnPlayerEnteredRoom(Player player)
+    public override void OnPlayerEnteredRoom(Photon.Realtime.Player player)
     {
         Instantiate(playerNamePrefab, playerlist).GetComponent<PlayerListItem>().SetUp(player);
     }
