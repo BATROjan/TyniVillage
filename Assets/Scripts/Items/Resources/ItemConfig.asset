@@ -19,3 +19,6 @@ MonoBehaviour:
   - ItemType: 1
     Sprite: {fileID: 242059027, guid: 09718aa93b1bfa04f888bb9fccc2f4e0, type: 3}
     Alpha: 255
+  - ItemType: 2
+    Sprite: {fileID: -1665794958, guid: 09718aa93b1bfa04f888bb9fccc2f4e0, type: 3}
+    Alpha: 255

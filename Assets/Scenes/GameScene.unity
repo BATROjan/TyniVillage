@@ -90249,11 +90249,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7f99fa8d0b6416ca071539d4a2a8181, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DefaultNamespace.Enviroment.Tree.TreeView
+  type: 2
   dropItem: {fileID: 8974475713080233832, guid: be058631f934cec4683e49b9385654a4, type: 3}
   deleteOjects:
   - {fileID: 1555151578}
   hitCount: 3
-  distance: 1.2
+  timer: 2
 --- !u!1 &1530596219
 GameObject:
   m_ObjectHideFlags: 0

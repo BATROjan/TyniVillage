@@ -28,18 +28,23 @@ namespace DefaultNamespace.Player
         }
         private void OnTriggerEnter2D(Collider2D other)
         {
-            var item = other.GetComponent<ItemView>();
+            var item = other.GetComponent<DropItem>();
             if (item)
             {
                 var itemType = item.PickUpItem();
-                foreach (var itemUI in itemUIViews)
+                SetItemToPack(item, itemType);
+            }
+        }
+
+        public void SetItemToPack(DropItem item,ItemType itemType)
+        {
+            foreach (var itemUI in itemUIViews)
+            {
+                if (!itemUI.CheckCell()) // Если тип None то он считается что что то есть и ничего не кладет сюда
                 {
-                    if (!itemUI.CheckCell())
-                    {
-                        itemUI.SetUpItem(Resources.Load<ItemConfig>("ItemConfig").GetModel(itemType), true);
-                        Destroy(item.gameObject);
-                        break;
-                    }
+                    itemUI.SetUpItem(Resources.Load<ItemConfig>("ItemConfig").GetModel(itemType), true);
+                    Destroy(item.gameObject);
+                    break;
                 }
             }
         }

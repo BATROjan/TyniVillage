@@ -45,7 +45,6 @@ namespace DefaultNamespace
                 PLayerMovement();
                 if (Input.GetKeyDown(KeyCode.Mouse0))
                 {
-                    Debug.Log("Axe");
                     if (currentItemType == ItemType.Axe)
                     {
                         animator.SetBool("Axe", true);

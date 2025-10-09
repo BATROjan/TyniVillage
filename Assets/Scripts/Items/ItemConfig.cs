@@ -38,6 +38,6 @@ namespace DefaultNamespace.Items
     {
         None,
         Axe,
-        Tree
+        Wood
     }
 }
