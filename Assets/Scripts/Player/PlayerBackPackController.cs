@@ -40,11 +40,20 @@ namespace DefaultNamespace.Player
         {
             foreach (var itemUI in itemUIViews)
             {
-                if (!itemUI.CheckCell()) // Если тип None то он считается что что то есть и ничего не кладет сюда
+                if (!itemUI.CheckCell()) 
                 {
                     itemUI.SetUpItem(Resources.Load<ItemConfig>("ItemConfig").GetModel(itemType), true);
                     Destroy(item.gameObject);
                     break;
+                }
+                if (itemUI.CheckCellToStack())
+                {
+                    if (itemUI.CheckCellForFull())
+                    {
+                        itemUI.SetUpItem(Resources.Load<ItemConfig>("ItemConfig").GetModel(itemType), true);
+                        Destroy(item.gameObject);
+                        break;
+                    }
                 }
             }
         }

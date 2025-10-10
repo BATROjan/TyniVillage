@@ -31,6 +31,9 @@ namespace DefaultNamespace.Items
     {
         public ItemType ItemType;
         public Sprite Sprite;
+        public bool CanStack;
+        public int StackCount;
+        public int ItemCount;
         public int Alpha;
     }
 

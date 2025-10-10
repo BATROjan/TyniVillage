@@ -8,13 +8,17 @@ namespace DefaultNamespace
     {
         [SerializeField] internal SpriteRenderer spriteRenderer;
         internal ItemType _itemType;
-        
+        internal int _count;
+        internal bool canStack;
         internal void SetUpItem(ItemModel model)
         {
             _itemType = model.ItemType;
             spriteRenderer.sprite = model.Sprite;
             var imageColor = spriteRenderer.color;
             imageColor.a = model.Alpha;
+
+            canStack = model.CanStack;
+            _count = model.ItemCount;
         }
         
         public ItemType PickUpItem()
