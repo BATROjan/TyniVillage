@@ -1,4 +1,5 @@
-﻿using DefaultNamespace.Items;
+﻿using System.Collections.Generic;
+using DefaultNamespace.Items;
 using DefaultNamespace.Tower;
 using DefaultNamespace.UI;
 using Photon.Pun;
@@ -37,6 +38,10 @@ namespace DefaultNamespace.Player
             }
         }
 
+        public TowerShopView GetTowerShopView()
+        {
+            return towerShopView;
+        }
         public void SetItemToPack(DropItem item,ItemType itemType)
         {
             foreach (var itemUI in itemUIViews)
@@ -64,8 +69,9 @@ namespace DefaultNamespace.Player
             return itemUIViews[i];
         }
 
-        public void OpenTowerShop(bool value)
+        public void OpenTowerShop(bool value, List<ItemModel> list)
         {
+            towerShopView.SetList(list);
             towerShopView.gameObject.SetActive(value);
         }
     }

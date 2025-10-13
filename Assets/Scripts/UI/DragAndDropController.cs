@@ -46,14 +46,20 @@ namespace DefaultNamespace.UI
                     }
                     if (_secondView)
                     {
-                        ChangeCell(_firstView, _secondView);
-                        SetNullToBothCells();
+                        if (!_secondView.CheckForShoop())
+                        {
+                            ChangeCell(_firstView, _secondView);
+                        }
+                        else
+                        {
+                            SetFirstCellToLastTransform();
+                        }
                     }
                     else
                     {
                         SetFirstCellToLastTransform();
-                        SetNullToBothCells();  
                     }
+                    SetNullToBothCells();  
                 }
                 else
                 {
@@ -100,7 +106,8 @@ namespace DefaultNamespace.UI
             
             _firstView.ChangeItem(model2);
             SetFirstCellToLastTransform();
-
+            fistView.OnGetFromShop?.Invoke(model1.ItemType);
+            
             _secondView.ChangeItem(model1);
             secondView.transform.localPosition = Vector3.zero;
 

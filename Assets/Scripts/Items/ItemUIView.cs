@@ -21,11 +21,13 @@ namespace DefaultNamespace.Items
     public class ItemUIView : MonoBehaviour
     {
         public Action<ItemModel, bool> OnChangeType;
+        public Action<ItemType> OnGetFromShop;
         
         [SerializeField] private Image image;
         [SerializeField] private bool isFirst; 
         [SerializeField] private UIStatusBarController statusBarController;
         [SerializeField] private TextMeshProUGUI itemCountText;
+        [SerializeField] private bool isShoop;
         
         private ItemType _itemType;
         private bool isFull;
@@ -67,6 +69,18 @@ namespace DefaultNamespace.Items
             }
         }
 
+        public void ClearCell()
+        { 
+            image.sprite = null; 
+            itemCountText= null; 
+            _itemType= ItemType.None; 
+            isFull= false; 
+            canStack= false; 
+            currentCount = 0; 
+            stackCount = 0; 
+            aplha= 0;
+        }
+
         public void ChangeItem(ItemUIModel model)
         {
             _itemType = model.ItemType;
@@ -104,6 +118,16 @@ namespace DefaultNamespace.Items
         public bool CheckCell()
         {
             return isFull;
+        }
+
+        public bool CheckForShoop()
+        {
+            return isShoop;
+        }
+
+        public ItemType GetItemType()
+        {
+            return _itemType;
         }
 
         public bool CheckCellToStack()

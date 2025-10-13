@@ -7,6 +7,7 @@ namespace DefaultNamespace.Enviroment.Tree
 {
     public class TreeView: MonoBehaviour
     {
+        [SerializeField] private ItemConfig itemConfig;
         [SerializeField] private ItemType type;
         [SerializeField] private DropItem dropItem;
         [SerializeField] private GameObject[] deleteOjects;
@@ -20,7 +21,6 @@ namespace DefaultNamespace.Enviroment.Tree
         public void AAA()
         {
             SpawnSphereOnEdgeRandomly2D();
-//            Instantiate(dropItem.gameObject, Random.insideUnitCircle * distance, Quaternion.identity, transform);
         }
 
         private void Start()
@@ -52,11 +52,10 @@ namespace DefaultNamespace.Enviroment.Tree
         {
             if (currentHitCount > 0)
             {
-                Debug.Log(currentHitCount);
                 Vector3 randomPos = Random.insideUnitCircle * distance;
                 randomPos += transform.position;
 
-                var model = Resources.Load<ItemConfig>("ItemConfig").GetModel(type);
+                var model = itemConfig.GetModel(type);
                 GameObject go = Instantiate(dropItem.gameObject, randomPos, Quaternion.identity);
                 go.GetComponent<DropItem>().SetUpItem(model);
                 go.transform.position = randomPos;

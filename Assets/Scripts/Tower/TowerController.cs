@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using DefaultNamespace.Items;
 using DefaultNamespace.Player;
 using Unity.VisualScripting;
@@ -9,36 +10,64 @@ namespace DefaultNamespace.Tower
     public class TowerController: MonoBehaviour
     {
         [SerializeField] private ItemView itemView;
-        private float timer;
+        [SerializeField] private ItemConfig itemConfig;
+        [SerializeField] private int maxItemCount;
+        
+
+        private float axeTimer;
+        private List<ItemModel> _listItem = new List<ItemModel>();
+        private List<ItemUIView> _listTypes = new List<ItemUIView>();
+        private bool hasPlayer;
+        private PlayerBackPackController _backPackController = new PlayerBackPackController();
         private void OnTriggerEnter2D(Collider2D other)
         {
-            var backPackController = other.GetComponent<PlayerBackPackController>();
-            if (backPackController)
+            _backPackController = other.GetComponent<PlayerBackPackController>();
+            if (_backPackController)
             {
-                backPackController.OpenTowerShop(true);
+                hasPlayer = true;
+                _backPackController.OpenTowerShop(true, _listItem);
+                var shop = _backPackController.GetTowerShopView();
+                _listTypes = shop.GetListOfItems();
+                foreach (var item in _listTypes)
+                {
+                    item.OnGetFromShop += RemoveItemFromList;
+                }
             }
         }
 
         private void OnTriggerExit2D(Collider2D other)
         {
-            var backPackController = other.GetComponent<PlayerBackPackController>();
-            if (backPackController)
+            if (_backPackController)
             {
-                backPackController.OpenTowerShop(false);
+                hasPlayer = false;
+                _backPackController.OpenTowerShop(false, null);
             }
+            foreach (var item in _listTypes)
+            {
+                item.OnGetFromShop -= RemoveItemFromList;
+            }
+            _listTypes.Clear();
+        }
+
+        private void RemoveItemFromList(ItemType type)
+        {
+            _listItem.Remove(itemConfig.GetModel(type));
         }
 
         public void Update()
         {
-            timer += Time.deltaTime;
-            if (timer >= 2)
+            if (_listItem.Count < maxItemCount)
             {
-                timer = 0;
-                var item = Instantiate(itemView.gameObject).GetComponent<ItemView>();
-                item.SetUpItem(Resources.Load<ItemConfig>("ItemConfig").GetModel(ItemType.Axe));
-                var collider2D = item.AddComponent<PolygonCollider2D>();
-                collider2D.isTrigger = true;
-                item.transform.position = new Vector2(-38, 5);
+                axeTimer += Time.deltaTime;
+                if (axeTimer >= 10)
+                {
+                    axeTimer = 0;
+                    _listItem.Add(itemConfig.GetModel(ItemType.Axe));
+                    if (hasPlayer)
+                    {
+                        _backPackController.OpenTowerShop(true, _listItem);
+                    }
+                }
             }
         }
     }
