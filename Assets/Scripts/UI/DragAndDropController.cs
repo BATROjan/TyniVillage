@@ -49,6 +49,11 @@ namespace DefaultNamespace.UI
                         ChangeCell(_firstView, _secondView);
                         SetNullToBothCells();
                     }
+                    else
+                    {
+                        SetFirstCellToLastTransform();
+                        SetNullToBothCells();  
+                    }
                 }
                 else
                 {
@@ -94,15 +99,20 @@ namespace DefaultNamespace.UI
             var model2 = secondView.GetItemModel();
             
             _firstView.ChangeItem(model2);
-            _firstView.transform.SetParent(lastItemTransfom);
-            _firstView.transform.localPosition = Vector3.zero;
+            SetFirstCellToLastTransform();
 
-            lastItemTransfom = null;
-            
             _secondView.ChangeItem(model1);
             secondView.transform.localPosition = Vector3.zero;
 
             SetNullToBothCells();
+        }
+
+        private void SetFirstCellToLastTransform()
+        {
+            _firstView.transform.SetParent(lastItemTransfom);
+            _firstView.transform.localPosition = Vector3.zero;
+
+            lastItemTransfom = null;
         }
     }
 }
