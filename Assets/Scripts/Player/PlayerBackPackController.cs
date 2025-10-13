@@ -9,6 +9,7 @@ namespace DefaultNamespace.Player
     public class PlayerBackPackController : MonoBehaviour
     {
         [SerializeField] private BackPackPanelView backPackPanelView;
+        [SerializeField] private ItemConfig itemConfig;
         [SerializeField] private TowerShopView towerShopView;
         [SerializeField] private PhotonView _photonView;
         [SerializeField] private ItemUIView[] itemUIViews;
@@ -42,7 +43,7 @@ namespace DefaultNamespace.Player
             {
                 if (!itemUI.CheckCell()) 
                 {
-                    itemUI.SetUpItem(Resources.Load<ItemConfig>("ItemConfig").GetModel(itemType), true);
+                    itemUI.SetUpItem(itemConfig.GetModel(itemType), true);
                     Destroy(item.gameObject);
                     break;
                 }
@@ -50,7 +51,7 @@ namespace DefaultNamespace.Player
                 {
                     if (itemUI.CheckCellForFull())
                     {
-                        itemUI.SetUpItem(Resources.Load<ItemConfig>("ItemConfig").GetModel(itemType), true);
+                        itemUI.SetUpItem(itemConfig.GetModel(itemType), true);
                         Destroy(item.gameObject);
                         break;
                     }
