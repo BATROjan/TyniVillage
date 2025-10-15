@@ -31,3 +31,9 @@ MonoBehaviour:
     StackCount: 10
     ItemCount: 1
     Alpha: 255
+  - ItemType: 3
+    Sprite: {fileID: 275199144, guid: 09718aa93b1bfa04f888bb9fccc2f4e0, type: 3}
+    CanStack: 1
+    StackCount: 8
+    ItemCount: 1
+    Alpha: 255

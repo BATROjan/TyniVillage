@@ -13,6 +13,7 @@ namespace DefaultNamespace
         [SerializeField] private UIStatusBarController statusBarController;
         [SerializeField] private PlayerBackPackController playerBackPackController;
         [SerializeField] private PlayerMineController playerMineController;
+        [SerializeField] private AttackController attackController;
         
         [SerializeField] private Rigidbody2D rigidbody2D;
         [SerializeField] private PhotonView _photonView;
@@ -50,6 +51,13 @@ namespace DefaultNamespace
                         animator.SetBool("Axe", true);
                     }
                 }
+                if (Input.GetKeyDown(KeyCode.Mouse1))
+                {
+                    /*if (currentItemType == ItemType.Axe)
+                    {*/
+                        animator.SetBool("Attack", true);
+                 //   }
+                }
             }
         }
 
@@ -72,11 +80,13 @@ namespace DefaultNamespace
             {
                 spriteRenderer.flipX = true;
                 playerMineController.ChangePoint(1);
+                attackController.ChangePoint(1);
             }
             if (hor > 0)
             {
                 spriteRenderer.flipX = false;
                 playerMineController.ChangePoint(0);
+                attackController.ChangePoint(0);
             }
         }
 

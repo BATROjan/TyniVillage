@@ -1,10 +1,11 @@
 ﻿using System;
+using DefaultNamespace.Enviroment;
 using DefaultNamespace.Enviroment.Tree;
 using UnityEngine;
 
 namespace Player
 {
-    public class HitBoxView : MonoBehaviour
+    public class MineHitBoxView : MonoBehaviour
     {
         private float timer;
         private void FixedUpdate()
@@ -18,9 +19,10 @@ namespace Player
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.GetComponent<TreeView>())
+            var aaa = other.GetComponent<MineEnviroment>();
+            if (aaa)
             {
-                other.GetComponent<TreeView>().AAA();
+                aaa.SpawnDrop();
             }
         }
     }

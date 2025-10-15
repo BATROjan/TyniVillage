@@ -61,7 +61,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4379218283330149639}
-  - {fileID: 2886856433076932405}
   m_Father: {fileID: 3621131709059445514}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -778,6 +777,7 @@ GameObject:
   - component: {fileID: 5589618987023349688}
   - component: {fileID: 8684467134333193025}
   - component: {fileID: 7857657308666746149}
+  - component: {fileID: 2613299895040883198}
   m_Layer: 0
   m_Name: PlayerController
   m_TagString: Untagged
@@ -900,6 +900,7 @@ MonoBehaviour:
   statusBarController: {fileID: 8505086977150765906}
   playerBackPackController: {fileID: 5589618987023349688}
   playerMineController: {fileID: 7857657308666746149}
+  attackController: {fileID: 2613299895040883198}
   rigidbody2D: {fileID: 8680302884468574534}
   _photonView: {fileID: 7969549538671561108}
   animator: {fileID: 1323926509717461010}
@@ -995,6 +996,9 @@ MonoBehaviour:
   - Type: 4
     SynchronizeType: 0
     Name: Axe
+  - Type: 4
+    SynchronizeType: 0
+    Name: Attack
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
@@ -1095,6 +1099,24 @@ MonoBehaviour:
   points:
   - {fileID: 2435877007807308468}
   - {fileID: 4214095350544499452}
+--- !u!114 &2613299895040883198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4576404411219596330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cb7491df1704c498ec63f22d44ed4a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DefaultNamespace.AttackController
+  animator: {fileID: 1323926509717461010}
+  hitBox: {fileID: 3940582584057463629, guid: 61a311c7d91f13940aefea18f5d7f609, type: 3}
+  points:
+  - {fileID: 2435877007807308468}
+  - {fileID: 4214095350544499452}
+  damage: 5
 --- !u!1 &5096815420145429915
 GameObject:
   m_ObjectHideFlags: 0
@@ -1195,12 +1217,12 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5864080700786340257}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7953634496617971494}
+  m_Father: {fileID: 3621131709059445514}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1399,6 +1421,7 @@ RectTransform:
   - {fileID: 1047270983003668124}
   - {fileID: 7953634496617971494}
   - {fileID: 7906724126961965169}
+  - {fileID: 2886856433076932405}
   m_Father: {fileID: 558990488382475781}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}

@@ -41,6 +41,7 @@ namespace DefaultNamespace.Items
     {
         None,
         Axe,
-        Wood
+        Wood,
+        Ore
     }
 }

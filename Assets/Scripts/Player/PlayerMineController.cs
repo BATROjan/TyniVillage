@@ -12,8 +12,8 @@ namespace Player
         
         public void Hit()
         {
-            var _box = Instantiate(hitBox.gameObject);
-            _box.transform.SetParent(_currentPoint, false);
+            var box = Instantiate(hitBox.gameObject);
+            box.transform.SetParent(_currentPoint, false);
         }
 
         public void DestoyHit()
