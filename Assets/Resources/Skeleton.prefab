@@ -136,8 +136,9 @@ MonoBehaviour:
   detection: {fileID: 7640761917723421260}
   animationController: {fileID: 5042814618709268591}
   speed: 2
-  rigidbody2D: {fileID: 0}
-  collider2D: {fileID: 0}
+  spriteRenderer: {fileID: 3339875535983194179}
+  rigidbody2D: {fileID: 6027524160515478925}
+  collider2D: {fileID: 3384942407782826040}
 --- !u!50 &6027524160515478925
 Rigidbody2D:
   serializedVersion: 5

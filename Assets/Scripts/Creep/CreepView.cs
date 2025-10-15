@@ -11,12 +11,14 @@ namespace DefaultNamespace.Creep
         [SerializeField] private CreepDetection detection;
         [SerializeField] private AnimationController animationController;
         [SerializeField] private float speed;
-
+        
+        [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private Rigidbody2D rigidbody2D;
-        [SerializeField] private PolygonCollider2D collider2D;
+        [SerializeField] private Collider2D collider2D;
             
         
         private int currentpoint = 1;
+        private float _lasPosX;
         private float des;
         private float _delayAfterDeath = 2;
         private Vector3 currentTargetPosition;
@@ -47,7 +49,11 @@ namespace DefaultNamespace.Creep
             }
             else
             {
-                currentTargetPosition = waysPoint[currentpoint].position;
+                if (currentpoint < waysPoint.Length)
+                {
+                    currentTargetPosition = waysPoint[currentpoint].position;
+                }
+                
                 isPoint = true;
                 des = 0.01f;
             }
@@ -57,6 +63,18 @@ namespace DefaultNamespace.Creep
         {
             if (!animator.GetBool("TakeDamage") || !animator.GetBool("Death"))
             {
+                var dir = _lasPosX - transform.position.x;
+                _lasPosX = transform.position.x;
+                
+                if (dir > 0)
+                {
+                    spriteRenderer.flipX = true;
+                }
+                if (dir < 0)
+                {
+                    spriteRenderer.flipX = false;
+                }
+                
                 transform.position = Vector3.MoveTowards(
                     transform.position, currentTargetPosition, speed * Time.deltaTime);
                 if (Vector3.SqrMagnitude(transform.position - currentTargetPosition) < des)
@@ -64,13 +82,17 @@ namespace DefaultNamespace.Creep
                     if (isPoint)
                     {
                         currentpoint++;
-                        currentTargetPosition = waysPoint[currentpoint].position;
+                        if (currentpoint < waysPoint.Length)
+                        {
+                            currentTargetPosition = waysPoint[currentpoint].position;
+                        }
                     }
                     else
                     {
                         Debug.Log("Attack");
                     }
                 } 
+
             }
 
             if (isDeath)
@@ -78,6 +100,7 @@ namespace DefaultNamespace.Creep
                 _delayAfterDeath -= Time.deltaTime;
                 if (_delayAfterDeath <= 0)
                 {
+                    collider2D.enabled = false;
                     Destroy(gameObject);
                 }
             }

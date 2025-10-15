@@ -9,22 +9,16 @@ namespace DefaultNamespace.Tower
         [SerializeField] private Transform[] waysPoint;
         [SerializeField] private float timer;
         [SerializeField] private CreepView creep;
-
-        public bool aaa = false;
+        
         private void Update()
         {
-            if (!aaa)
+            timer += Time.deltaTime;
+            if (timer >= 5)
             {
-                timer += Time.deltaTime;
-                if (timer >= 5)
-                {
-                    aaa = !aaa;
-                    timer = 0;
-                    var creepView = Instantiate(creep.gameObject, waysPoint[0]).GetComponent<CreepView>();
-                    creepView.SetWaysPoints(waysPoint);
-                }
+                timer = 0;
+                var creepView = Instantiate(creep.gameObject, waysPoint[0]).GetComponent<CreepView>();
+                creepView.SetWaysPoints(waysPoint);
             }
-           
         }
     }
 }
