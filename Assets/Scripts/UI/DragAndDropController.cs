@@ -20,9 +20,12 @@ namespace DefaultNamespace.UI
                 var data = PointerRaycast(Input.mousePosition);
                 if (data != null)
                 {
-                    _firstView = data[0];
-                    lastItemTransfom = _firstView.transform.parent;
-                    _firstView.transform.SetParent(currentItemTransfom);
+                    if (data.Count>0)
+                    {
+                        _firstView = data[0];
+                        lastItemTransfom = _firstView.transform.parent;
+                        _firstView.transform.SetParent(currentItemTransfom);
+                    }
                 }
             }
             if (_firstView && Input.GetMouseButton(0))
@@ -48,6 +51,10 @@ namespace DefaultNamespace.UI
                     {
                         if (!_secondView.CheckForShoop())
                         {
+                            if (_secondView.CheckForRepaire())
+                            {
+                                _secondView.OnSetToPepaire?.Invoke(_firstView.GetCellCount());
+                            }
                             ChangeCell(_firstView, _secondView);
                         }
                         else

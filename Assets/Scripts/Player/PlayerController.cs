@@ -10,16 +10,20 @@ namespace DefaultNamespace
 {
     public class PlayerController: MonoBehaviour
     {
+        public PlayerTeam Team;
+        
         [SerializeField] private UIStatusBarController statusBarController;
         [SerializeField] private PlayerBackPackController playerBackPackController;
         [SerializeField] private PlayerMineController playerMineController;
-        [SerializeField] private AttackController attackController;
+        [SerializeField] private PlayerAttackController attackController;
+        [SerializeField] private PayView payView;
         
         [SerializeField] private Rigidbody2D rigidbody2D;
         [SerializeField] private PhotonView _photonView;
         [SerializeField] private Animator animator;
         [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private Transform cameraTransform;
+        
         [SerializeField] private float cameraSensitivity;
         [SerializeField] private float movementSpeed;
         [SerializeField] private float checkJumpRadius;
@@ -27,6 +31,12 @@ namespace DefaultNamespace
 
         private float rotationX;
         private ItemType currentItemType;
+
+        public PayView GetPayView()
+        {
+            return payView;
+        }
+        
         private void Start()
         {
             if (!_photonView.IsMine)
@@ -43,20 +53,27 @@ namespace DefaultNamespace
         {
             if (_photonView.IsMine)
             {
-                PLayerMovement();
-                if (Input.GetKeyDown(KeyCode.Mouse0))
+                if (!animator.GetBool("Death"))
                 {
-                    if (currentItemType == ItemType.Axe)
+                    PLayerMovement();
+                    if (!animator.GetBool("TakeDamage") || !animator.GetBool("Attack"))
                     {
-                        animator.SetBool("Axe", true);
+                        if (Input.GetKeyDown(KeyCode.Mouse0))
+                        {
+                            if (currentItemType == ItemType.Axe)
+                            {
+                                animator.SetBool("Axe", true);
+                            }
+                        }
+
+                        if (Input.GetKeyDown(KeyCode.Mouse1))
+                        {
+                            /*if (currentItemType == ItemType.Axe)
+                            {*/
+                            attackController.Attack();
+                            //   }
+                        }
                     }
-                }
-                if (Input.GetKeyDown(KeyCode.Mouse1))
-                {
-                    /*if (currentItemType == ItemType.Axe)
-                    {*/
-                        animator.SetBool("Attack", true);
-                 //   }
                 }
             }
         }
@@ -107,5 +124,11 @@ namespace DefaultNamespace
             cameraTransform.eulerAngles =
                 new Vector3(rotationX, cameraTransform.eulerAngles.y, cameraTransform.eulerAngles.z);
         }
+    }
+    
+    public enum PlayerTeam
+    {
+        Blue,
+        Red
     }
 }

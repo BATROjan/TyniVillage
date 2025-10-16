@@ -10,6 +10,7 @@ namespace DefaultNamespace.Creep
         [SerializeField] private Animator animator;
         [SerializeField] private CreepDetection detection;
         [SerializeField] private AnimationController animationController;
+        [SerializeField] private CreepAttackController attackController;
         [SerializeField] private float speed;
         
         [SerializeField] private SpriteRenderer spriteRenderer;
@@ -29,7 +30,7 @@ namespace DefaultNamespace.Creep
         {
             animationController.OnDeath += Death;
             isPoint = true;
-            des = 0.01f;
+            des = 0.5f;
             detection.OnPlayerDetected += ChangeTarget;
             detection.OnPlayerLoosed += ChangeTarget;
         }
@@ -45,7 +46,6 @@ namespace DefaultNamespace.Creep
             {
                 currentTargetPosition = transform.position;
                 isPoint = false;
-                des = 0.1f;
             }
             else
             {
@@ -55,13 +55,14 @@ namespace DefaultNamespace.Creep
                 }
                 
                 isPoint = true;
-                des = 0.01f;
             }
         }
 
         private void Update()
         {
-            if (!animator.GetBool("TakeDamage") || !animator.GetBool("Death"))
+            if (!animator.GetBool("TakeDamage") 
+                || !animator.GetBool("Death")
+                || !animator.GetBool("Attack"))
             {
                 var dir = _lasPosX - transform.position.x;
                 _lasPosX = transform.position.x;
@@ -69,10 +70,12 @@ namespace DefaultNamespace.Creep
                 if (dir > 0)
                 {
                     spriteRenderer.flipX = true;
+                    attackController.ChangePoint(1);
                 }
                 if (dir < 0)
                 {
                     spriteRenderer.flipX = false;
+                    attackController.ChangePoint(0);
                 }
                 
                 transform.position = Vector3.MoveTowards(
@@ -89,10 +92,9 @@ namespace DefaultNamespace.Creep
                     }
                     else
                     {
-                        Debug.Log("Attack");
+                        attackController.Attack();
                     }
                 } 
-
             }
 
             if (isDeath)

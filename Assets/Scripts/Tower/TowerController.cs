@@ -19,13 +19,14 @@ namespace DefaultNamespace.Tower
         private List<ItemUIView> _listTypes = new List<ItemUIView>();
         private bool hasPlayer;
         private PlayerBackPackController _backPackController = new PlayerBackPackController();
+        private string _towerText = "Тут ты можешь взять необходимые предметы";
         private void OnTriggerEnter2D(Collider2D other)
         {
             _backPackController = other.GetComponent<PlayerBackPackController>();
             if (_backPackController)
             {
                 hasPlayer = true;
-                _backPackController.OpenTowerShop(true, _listItem);
+                _backPackController.OpenTowerShop(true, _listItem, _towerText);
                 var shop = _backPackController.GetTowerShopView();
                 _listTypes = shop.GetListOfItems();
                 foreach (var item in _listTypes)
@@ -40,7 +41,7 @@ namespace DefaultNamespace.Tower
             if (_backPackController)
             {
                 hasPlayer = false;
-                _backPackController.OpenTowerShop(false, null);
+                _backPackController.OpenTowerShop(false, null, null);
             }
             foreach (var item in _listTypes)
             {
@@ -59,13 +60,13 @@ namespace DefaultNamespace.Tower
             if (_listItem.Count < maxItemCount)
             {
                 axeTimer += Time.deltaTime;
-                if (axeTimer >= 10)
+                if (axeTimer >= 2)
                 {
                     axeTimer = 0;
                     _listItem.Add(itemConfig.GetModel(ItemType.Axe));
                     if (hasPlayer)
                     {
-                        _backPackController.OpenTowerShop(true, _listItem);
+                        _backPackController.OpenTowerShop(true, _listItem, _towerText);
                     }
                 }
             }

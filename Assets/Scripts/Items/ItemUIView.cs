@@ -22,12 +22,14 @@ namespace DefaultNamespace.Items
     {
         public Action<ItemModel, bool> OnChangeType;
         public Action<ItemType> OnGetFromShop;
+        public Action<int> OnSetToPepaire;
         
         [SerializeField] private Image image;
         [SerializeField] private bool isFirst; 
         [SerializeField] private UIStatusBarController statusBarController;
         [SerializeField] private TextMeshProUGUI itemCountText;
         [SerializeField] private bool isShoop;
+        [SerializeField] private bool isRepairCell;
         
         private ItemType _itemType;
         private bool isFull;
@@ -67,6 +69,11 @@ namespace DefaultNamespace.Items
                     itemCountText.text = "";
                 }
             }
+        }
+
+        public int GetCellCount()
+        {
+            return currentCount;
         }
 
         public void ClearCell()
@@ -123,6 +130,10 @@ namespace DefaultNamespace.Items
         public bool CheckForShoop()
         {
             return isShoop;
+        }   
+        public bool CheckForRepaire()
+        {
+            return isRepairCell;
         }
 
         public ItemType GetItemType()

@@ -6,14 +6,14 @@ namespace DefaultNamespace
 {
     public class AttackController: MonoBehaviour
     {
-        [SerializeField] private Animator animator;
-        [SerializeField] private AttackHitBox hitBox;
-        [SerializeField] private Transform[] points;
-        [SerializeField] private int damage;
+        [SerializeField] protected Animator animator;
+        [SerializeField] protected AttackHitBox hitBox;
+        [SerializeField] protected Transform[] points;
+        [SerializeField] protected int damage;
 
         private Transform _currentPoint;
         
-        protected void Attack()
+        protected void BaseAttack()
         {
             var box = Instantiate(hitBox.gameObject).GetComponent<AttackHitBox>();
             box.transform.SetParent(_currentPoint, false);

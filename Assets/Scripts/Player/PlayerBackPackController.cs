@@ -3,6 +3,7 @@ using DefaultNamespace.Items;
 using DefaultNamespace.Tower;
 using DefaultNamespace.UI;
 using Photon.Pun;
+using TMPro;
 using UnityEngine;
 
 namespace DefaultNamespace.Player
@@ -14,6 +15,7 @@ namespace DefaultNamespace.Player
         [SerializeField] private TowerShopView towerShopView;
         [SerializeField] private PhotonView _photonView;
         [SerializeField] private ItemUIView[] itemUIViews;
+        [SerializeField] private HintView hintView;
         
         private bool _backPackIsOpen;
         private void Update()
@@ -69,8 +71,18 @@ namespace DefaultNamespace.Player
             return itemUIViews[i];
         }
 
-        public void OpenTowerShop(bool value, List<ItemModel> list)
+        public void OpenTowerShop(bool value, List<ItemModel> list, string text)
         {
+            if (text != null )
+            {
+                hintView.gameObject.SetActive(true);
+               hintView.Text.text = text;
+            }
+            else
+            {
+                hintView.Text.text = "";
+                hintView.gameObject.SetActive(false);
+            }
             towerShopView.SetList(list);
             towerShopView.gameObject.SetActive(value);
         }

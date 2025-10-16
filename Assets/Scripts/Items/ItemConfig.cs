@@ -42,6 +42,9 @@ namespace DefaultNamespace.Items
         None,
         Axe,
         Wood,
-        Ore
+        Ore,
+        Sword,
+        PickAxe,
+        Hammer
     }
 }

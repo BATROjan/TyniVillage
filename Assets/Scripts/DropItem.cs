@@ -27,11 +27,11 @@ namespace DefaultNamespace
         }
         private void OnTriggerEnter2D(Collider2D other)
         {
-            /*var backPackController = other.GetComponent<PlayerBackPackController>();
+            var backPackController = other.GetComponent<PlayerBackPackController>();
             if (backPackController)
             {
                 backPackController.SetItemToPack(this, _itemType);
-            }*/
+            }
         }
     }
 }

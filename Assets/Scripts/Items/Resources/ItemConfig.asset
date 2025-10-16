@@ -37,3 +37,21 @@ MonoBehaviour:
     StackCount: 8
     ItemCount: 1
     Alpha: 255
+  - ItemType: 4
+    Sprite: {fileID: -1335204257, guid: 09718aa93b1bfa04f888bb9fccc2f4e0, type: 3}
+    CanStack: 0
+    StackCount: 8
+    ItemCount: 1
+    Alpha: 255
+  - ItemType: 5
+    Sprite: {fileID: -1824595016, guid: 09718aa93b1bfa04f888bb9fccc2f4e0, type: 3}
+    CanStack: 0
+    StackCount: 8
+    ItemCount: 1
+    Alpha: 255
+  - ItemType: 6
+    Sprite: {fileID: -1314935968, guid: 09718aa93b1bfa04f888bb9fccc2f4e0, type: 3}
+    CanStack: 0
+    StackCount: 8
+    ItemCount: 1
+    Alpha: 255
