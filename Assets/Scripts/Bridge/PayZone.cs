@@ -6,8 +6,8 @@ namespace DefaultNamespace.Bridge
 {
     public class PayZone: MonoBehaviour
     {
-        public Action<int> OnPayed;
-        private string messenge = "Построй мост из дерева. Постарайся потратить больше дерева чем твой соперник";
+        public Action<int, PlayerTeam> OnPayed;
+        private string messenge = "Построй мост. Постарайся построить больше чем твой соперник";
 
         private int _woodCount;
         private void OnTriggerEnter2D(Collider2D other)
@@ -40,10 +40,10 @@ namespace DefaultNamespace.Bridge
             }
         }
 
-        private void SetWoodCount(int value)
+        private void SetWoodCount(int value, PlayerTeam team)
         {
             _woodCount = value;
-            OnPayed?.Invoke(_woodCount);
+            OnPayed?.Invoke(_woodCount, team);
         }
     }
 }

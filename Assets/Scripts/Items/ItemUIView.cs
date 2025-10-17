@@ -22,7 +22,7 @@ namespace DefaultNamespace.Items
     {
         public Action<ItemModel, bool> OnChangeType;
         public Action<ItemType> OnGetFromShop;
-        public Action<int> OnSetToPepaire;
+        public Action<int, PlayerTeam> OnSetToPepaire;
         
         [SerializeField] private Image image;
         [SerializeField] private bool isFirst; 
@@ -31,7 +31,9 @@ namespace DefaultNamespace.Items
         [SerializeField] private bool isShoop;
         [SerializeField] private bool isRepairCell;
         
+        private PlayerTeam _team;
         private ItemType _itemType;
+        
         private bool isFull;
         private bool canStack;
         private int currentCount = 0;
@@ -74,6 +76,16 @@ namespace DefaultNamespace.Items
         public int GetCellCount()
         {
             return currentCount;
+        }
+
+        public void SetTeam(PlayerTeam team)
+        {
+            _team = team;
+        }
+
+        public PlayerTeam GetTeam()
+        {
+            return _team;
         }
 
         public void ClearCell()

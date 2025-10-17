@@ -12,8 +12,10 @@ namespace DefaultNamespace.Bridge
         [SerializeField] private GameObject[] cells;
         [SerializeField] private TextMeshProUGUI textMeshPro;
 
-        private int count = 100;
-
+        private int _maxCount = 100;
+        private int _currentCount;
+        private int _blueCount;
+        private int _redCount;
         private void Start()
         {
             foreach (var zone in payZones)
@@ -22,9 +24,17 @@ namespace DefaultNamespace.Bridge
             }
         }
 
-        public void Minus(int value)
+        public void Minus(int value, PlayerTeam team)
         {
-            textMeshPro.text = (count - value).ToString();
+            if (team == PlayerTeam.Blue)
+            {
+                _blueCount += value;
+            }
+            else
+            {
+                _redCount+= value;
+            }
+            textMeshPro.text = $"{_blueCount} / {_redCount}";
         }
     }
 }

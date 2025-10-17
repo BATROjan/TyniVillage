@@ -47,6 +47,7 @@ namespace DefaultNamespace
             }
             playerBackPackController.GetCell(0).OnChangeType += statusBarController.SetUpItem;
             statusBarController.OnChangeItem += ChangeType;
+            payView.GetUICell().SetTeam(Team);
         }
 
         private void FixedUpdate()

@@ -53,7 +53,7 @@ namespace DefaultNamespace.UI
                         {
                             if (_secondView.CheckForRepaire())
                             {
-                                _secondView.OnSetToPepaire?.Invoke(_firstView.GetCellCount());
+                                _secondView.OnSetToPepaire?.Invoke(_firstView.GetCellCount(), _firstView.GetTeam());
                             }
                             ChangeCell(_firstView, _secondView);
                         }
